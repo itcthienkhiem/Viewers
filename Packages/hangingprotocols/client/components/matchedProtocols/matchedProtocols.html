@@ -1,0 +1,20 @@
+<template name="matchedProtocols">
+    <div id='matchedProtocols' class="btn-group">
+        {{ #if matchedProtocols }}
+        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hanging Protocol <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            {{ #each matchedProtocols }}
+            <li>
+                <a class='matchedProtocol {{#if active}}active{{/if}}'>{{name}}</a>
+            </li>
+            {{ /each }}
+        </ul>
+        {{ /if }}
+
+        <button id="toggleProtocolEditor" type="button" class="btn btn-sm">
+            Toggle Protocol Editor
+        </button>
+    </div>
+</template>
