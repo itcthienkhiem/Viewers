@@ -5,9 +5,11 @@
         {{> cineDialog }}
         <div class='viewerMain'>
             {{> toolbar }}
-            {{> imageViewerViewports }}
+            <div id='layoutManagerTarget'>
+            </div>
         </div>
     </div>
+    {{ >protocolEditor }}
     {{else}}
         {{>loadingText}}
     {{/if}}

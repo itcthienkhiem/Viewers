@@ -1,0 +1,24 @@
+<template name="settingsTable">
+    <table class="settingsTable table">
+        <thead>
+            <tr>
+                <th>Setting</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ #each objectToPairs settings }}
+            {{#if value}}
+            <tr>
+                <td>
+                    {{prettyPrintStringify key}}
+                </td>
+                <td>
+                    {{prettyPrintStringify value}}
+                </td>
+            </tr>
+            {{/if}}
+            {{ /each }}
+        </tbody>
+    </table>
+</template>

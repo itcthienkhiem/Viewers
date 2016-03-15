@@ -1,0 +1,24 @@
+<template name="stageDetails">
+    <div id="stageDetails" class="protocolEditorSection">
+        <div class="row">
+            <div class="col-xs-12">
+                {{ #with activeViewport }}
+                <div class="stageEditorSection">
+                    <h4>Study Matching Rules</h4>
+                    {{ >ruleTable level="study" rules=studyMatchingRules attributes=studyAttributes}}
+                </div>
+
+                <div class="stageEditorSection">
+                    <h4>Series Matching Rules</h4>
+                    {{ >ruleTable level="series" rules=seriesMatchingRules attributes=seriesAttributes}}
+                </div>
+
+                <div class="stageEditorSection">
+                    <h4>Image Matching Rules</h4>
+                    {{ >ruleTable level="instance" rules=imageMatchingRules attributes=instanceAttributes}}
+                </div>
+                {{ /with }}
+            </div>
+        </div>
+    </div>
+</template>

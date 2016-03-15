@@ -1,0 +1,20 @@
+<template name="stageSortable">
+    <div id="stageSortingContainer">
+        <div id="stageSortable" class="sortable">
+            {{#each stages}}
+                <div class="sortable-item" data-id={{id}}>
+                    <span>
+                        <div class="sortable-handle pull-left"></div>
+                        <i class="deleteStage fa fa-trash fa-lg pull-right"></i>
+                    <span class="{{#if isActiveStage}}active{{/if}}">
+                        Stage {{inc @index}}
+                    </span>
+                    </span>
+                </div>
+            {{/each}}
+        </div>
+        <span class="addStage">
+            New <i class="fa fa-plus-circle"></i>
+        </span>
+    </div>
+</template>
