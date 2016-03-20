@@ -116,10 +116,8 @@ function loadSeriesIntoViewport(data, templateData) {
 
     // Enable Cornerstone for the viewport element
     //
-    // NOTE: This uses the experimental WebGL renderer for Cornerstone!
-    // If you have problems, replace it with this line instead:
-    // cornerstone.enable(element);
-    cornerstone.enable(element, cornerstone.webGL.renderer.render);
+    cornerstone.enable(element);
+    //cornerstone.enable(element, cornerstone.webGL.renderer.render);
 
     // Get the handler functions that will run when loading has finished or thrown
     // an error. These are used to show/hide loading / error text boxes on each viewport.
