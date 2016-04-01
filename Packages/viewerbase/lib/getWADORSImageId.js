@@ -5,7 +5,11 @@
  * @returns {string} The imageId to be used by Cornerstone
  */
 
-getWADORSImageId = function(instance) {
+getWADORSImageId = function(instance, frame) {
+    if (frame === undefined) {
+        frame = 1;
+    }
+
     var columnPixelSpacing = 1.0;
     var rowPixelSpacing = 1.0;
     if (instance.pixelSpacing) {
@@ -23,10 +27,7 @@ getWADORSImageId = function(instance) {
     }
 
     var image = {
-        uri: instance.wadorsuri,
-        //imageId : '',
-        //minPixelValue : 0,
-        //maxPixelValue : 255,
+        uri: instance.wadorsuri + '/frames/' + frame,
         slope: instance.rescaleSlope,
         intercept: instance.rescaleIntercept,
         samplesPerPixel: instance.samplesPerPixel,
@@ -37,10 +38,6 @@ getWADORSImageId = function(instance) {
         frameOfReferenceUID: instance.frameOfReferenceUID,
         windowCenter: windowCenter,
         windowWidth: windowWidth,
-        //render: cornerstone.renderColorImage,
-        //getPixelData: getPixelData,
-        //getImageData: getImageData,
-        //getCanvas: getCanvas,
         rows: instance.rows,
         columns: instance.columns,
         height: instance.rows,

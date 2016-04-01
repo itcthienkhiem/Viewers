@@ -100,7 +100,12 @@ function resultDataToStudyMetadata(studyInstanceUid, resultData) {
 
         // Retrieve the actual data over WADO-URI
         var server = Meteor.settings.dicomWeb.endpoints[0];
-        instanceSummary.wadouri = server.wadoUriRoot + '?requestType=WADO&studyUID=' + studyInstanceUid + '&seriesUID=' + seriesInstanceUid + '&objectUID=' + sopInstanceUid + "&contentType=application%2Fdicom";
+
+        if (server.imageRendering === 'wadouri') {
+            instanceSummary.wadouri = server.wadoUriRoot + '?requestType=WADO&studyUID=' + studyInstanceUid + '&seriesUID=' + seriesInstanceUid + '&objectUID=' + sopInstanceUid + "&contentType=application%2Fdicom";
+        } else {
+            instanceSummary.wadorsuri = server.wadoRsUriRoot + '/studies/' + studyInstanceUid + '/series/' + seriesInstanceUid + '/instances/' + sopInstanceUid;
+        }
 
         series.instances.push(instanceSummary);
     });
