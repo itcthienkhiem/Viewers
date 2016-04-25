@@ -233,7 +233,7 @@ Template.protocolEditor.events({
                     // If the server returns an error during importing, alert the user
 
                     // TODO: Use a custom dialog box, rather than "alert"
-                    alert('Protocol import failed');
+                    alert('Protocol import failed.');
                 }
             });
         };
@@ -335,11 +335,22 @@ Template.protocolEditor.events({
      * Delete the currently selected Protocol
      */
     'click #deleteProtocol': function() {
-        // Send a call to remove the Protocol from the HangingProtocols Collection on the server
         var selectedProtocol = this;
-        Meteor.call('removeHangingProtocol', selectedProtocol._id);
 
-        // Set the Viewer to display the default hanging protocol
-        ProtocolEngine.setHangingProtocol(HP.defaultProtocol);
+        var options = {
+            title: 'Delete Protocol',
+            text: 'Are you sure you would like to remove this Protocol? This cannot be reversed.'
+        };
+
+        showConfirmDialog(function() {
+            // Send a call to remove the Protocol from the HangingProtocols Collection on the server
+            Meteor.call('removeHangingProtocol', selectedProtocol._id);
+
+            // Set the Viewer to display the default hanging protocol
+            ProtocolEngine.setHangingProtocol(HP.defaultProtocol);
+
+            // Update the protocol selector
+            updateProtocolSelect();
+        }, options);
     }
 });

@@ -12,6 +12,9 @@ Router.route('/protocol-export/:_id', function() {
         return;
     }
 
+    // Remove the MongoDB _id
+    delete protocol._id;
+
     var protocolJSON = JSON.stringify(protocol, null, 2),
         currentDate = new Date(),
         filename = protocol.name + '-' + (currentDate.getTime().toString()) + '.json';
@@ -38,6 +41,6 @@ Router.route('/protocol-import', {
         this.response.end(toImport.id);
     } catch(e) {
         this.response.writeHead(500);
-        this.response.end('Failure to parse protocol json');
+        this.response.end('Failed to parse protocol JSON.');
     }
 });
