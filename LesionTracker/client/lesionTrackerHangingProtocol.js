@@ -47,17 +47,17 @@ body.constraint = {
     }
 };
 
-var abdomen = new HP.SeriesMatchingRule();
-abdomen.attribute = 'seriesDescription';
-abdomen.constraint = {
+var chest = new HP.SeriesMatchingRule();
+chest.attribute = 'seriesDescription';
+chest.constraint = {
     contains: {
-        value: 'Abdomen'
+        value: 'CHEST'
     }
 };
 
 single.studyMatchingRules.push(baseline);
 single.seriesMatchingRules.push(body);
-single.seriesMatchingRules.push(abdomen);
+single.seriesMatchingRules.push(chest);
 
 var first = new HP.Stage(oneByOne, 'oneByOne');
 first.viewports.push(single);
@@ -127,21 +127,21 @@ body.constraint = {
     }
 };
 
-var abdomen = new HP.SeriesMatchingRule();
-abdomen.attribute = 'seriesDescription';
-abdomen.constraint = {
+var chest = new HP.SeriesMatchingRule();
+chest.attribute = 'seriesDescription';
+chest.constraint = {
     contains: {
-        value: 'Abdomen'
+        value: 'CHEST'
     }
 };
 
 left.studyMatchingRules.push(baseline);
 left.seriesMatchingRules.push(body);
-left.seriesMatchingRules.push(abdomen);
+left.seriesMatchingRules.push(chest);
 
 right.studyMatchingRules.push(followup);
 right.seriesMatchingRules.push(body);
-right.seriesMatchingRules.push(abdomen);
+right.seriesMatchingRules.push(chest);
 
 var first = new HP.Stage(oneByTwo, 'oneByTwo');
 first.viewports.push(left);
