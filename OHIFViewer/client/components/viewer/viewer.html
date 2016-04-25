@@ -1,7 +1,10 @@
 <template name="viewer">
     {{#if Template.subscriptionsReady}}
     <div id="viewer">
-        {{> studyBrowser }}
+        <div class="studyBrowserSidebar">
+            {{ >relatedStudySelect }}
+            {{> studyBrowser }}
+        </div>
         {{> cineDialog }}
         <div class='viewerMain'>
             {{> toolbar }}

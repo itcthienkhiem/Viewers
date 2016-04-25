@@ -33,7 +33,9 @@ HP.match = function(attributes, rules) {
         // If the attributes we are testing (e.g. study, series, or instance attributes) do
         // not contain the attribute specified in the rule, check whether or not they have been
         // defined in the CustomAttributeRetrievalCallbacks Object.
-        if (!attributes.hasOwnProperty(attribute) &&
+
+        // TODO: Investigate why attributes.hasOwnProperty(attribute) doesn't work?
+        if (attributes[attribute] === undefined &&
             HP.CustomAttributeRetrievalCallbacks.hasOwnProperty(attribute)) {
             var customAttribute = HP.CustomAttributeRetrievalCallbacks[attribute];
             attributes[attribute] = customAttribute.callback(attributes);
