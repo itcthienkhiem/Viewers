@@ -9,11 +9,11 @@
   .navigationButtons
     ul
       margin: 0 auto
-      width: 200px
+      width: 300px
 
     li
       text-align: center
-      width: 100px
+      width: 150px
       margin: 0
 
       &:first-child:not(:last-child)
@@ -33,6 +33,12 @@
         outline: none
         background: #3e3e3e
         color: #ffffff
+
+        -webkit-transition: all 0.3s ease
+        -moz-transition: all 0.3s ease
+        -o-transition: all 0.3s ease
+        -ms-transition: all 0.3s ease
+        transition: all 0.3s ease
 
       &.active
         a
@@ -121,7 +127,7 @@
           a
             cursor: pointer
 
-  #stageEditor
+  #activeViewportEditor
     padding: 10px
 
 .cbp-spmenu-right 
