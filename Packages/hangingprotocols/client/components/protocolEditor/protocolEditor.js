@@ -140,6 +140,9 @@ Template.protocolEditor.helpers({
         
         // Return the current Stage model for the active Protocol
         return ProtocolEngine.getCurrentStageModel();
+    },
+    activeViewportUndefined: function() {
+        return (Session.get('activeViewport') === undefined);
     }
 });
 

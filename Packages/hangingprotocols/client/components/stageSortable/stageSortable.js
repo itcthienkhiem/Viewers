@@ -51,8 +51,10 @@ Template.stageSortable.helpers({
         // Retrieve the index of this stage in the display set sequences
         var stageIndex = getStageIndex(ProtocolEngine.protocol, this.id);
 
+        var currentStage = ProtocolEngine.getCurrentStageModel();
+
         // Return a boolean representing if the active stage and the specified stage index are equal
-        return (this.activeStageIndex === stageIndex);
+        return (this.id === currentStage.id);
     }
 });
 
@@ -134,10 +136,16 @@ Template.stageSortable.onRendered(function() {
     // Define the options for the Sortable plugin which is used
     // for drag-and-drop reordering of stages
     // See: https://github.com/RubaXa/Sortable/
+
+    var originalOrder;
+    var sortable = false;
     var stageSortableOptions = {
         sort: true,
         animation: 100,
         handle: '.sortable-handle',
+        onStart: function() {
+            originalOrder = sortable.toArray();
+        },
         // event handler for reordering attributes
         onSort: function(event) {
             var currentStage = ProtocolEngine.getCurrentStageModel();
@@ -163,5 +171,16 @@ Template.stageSortable.onRendered(function() {
     var element = document.getElementById('stageSortable');
 
     // Create the Sortable list with the specified options
-    var sortable = Sortable.create(element, stageSortableOptions);
+    sortable = Sortable.create(element, stageSortableOptions);
+
+    this.autorun(function() {
+        // re-runs when the order changes
+        Session.get('LayoutManagerUpdated', Random.id());
+        
+        if (sortable && originalOrder) {
+            // undo the local DOM sorting
+            sortable.sort(originalOrder);
+            originalOrder = null;
+        }
+    });
 });
