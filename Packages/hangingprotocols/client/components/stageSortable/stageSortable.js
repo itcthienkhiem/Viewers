@@ -136,7 +136,6 @@ Template.stageSortable.onRendered(function() {
     // Define the options for the Sortable plugin which is used
     // for drag-and-drop reordering of stages
     // See: https://github.com/RubaXa/Sortable/
-
     var originalOrder;
     var sortable = false;
     var stageSortableOptions = {
@@ -144,10 +143,16 @@ Template.stageSortable.onRendered(function() {
         animation: 100,
         handle: '.sortable-handle',
         onStart: function() {
+            // Store the original order before the onSort event fires
             originalOrder = sortable.toArray();
         },
-        // event handler for reordering attributes
         onSort: function(event) {
+            // When the list is sorted, we will use this function to
+            // reorder the Protocol's Stages inside the Protocol itself
+            // and then let our autorun function below reset the DOM
+            // after the list reactively updates
+
+            // Store the current stage so we can make sure we stay on it
             var currentStage = ProtocolEngine.getCurrentStageModel();
 
             // Get the old and new indices following a 'sort' event
@@ -167,19 +172,39 @@ Template.stageSortable.onRendered(function() {
         }
     };
 
-    // Retrieve the element to be enabled as a Sortable
-    var element = document.getElementById('stageSortable');
+    // Here we have two autorun functions which allow us to have a dynamic
+    // (i.e. list elements are passed reactively to this template, and the
+    // list automatically updates) list which is also sortable using Rubaxa's
+    // Sortable plugin.
+    this.autorun(function() {
+        // This autorun function runs every time the Template data changes
+        // It's sole purpose is to create the Sortable object from the data
+        Template.currentData();
 
-    // Create the Sortable list with the specified options
-    sortable = Sortable.create(element, stageSortableOptions);
+        // Retrieve the element to be enabled as a Sortable
+        var element = document.getElementById('stageSortable');
+
+        // Create the Sortable list with the specified options
+        sortable = Sortable.create(element, stageSortableOptions);
+    });
 
     this.autorun(function() {
-        // re-runs when the order changes
-        Session.get('LayoutManagerUpdated', Random.id());
-        
+        // This autorun function resets the DOM sorting performed by the
+        // plugin. It fires immediately after the onSort event and its purpose
+        // is to manually reset the Sortable plugin's representation of the DOM
+        // to the state that was present at onStart.
+
+        // This runs whenever the layout manager is updated
+        Session.get('LayoutManagerUpdated');
+
+        // If the sortable list is present and an original order is defined
+        // (e.g. immediately after onSort)
         if (sortable && originalOrder) {
-            // undo the local DOM sorting
+            // Undo the local DOM sorting using Sortable's sort function
+            // and the stored order
             sortable.sort(originalOrder);
+
+            // Erase the original order
             originalOrder = null;
         }
     });
