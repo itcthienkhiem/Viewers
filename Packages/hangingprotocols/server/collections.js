@@ -4,7 +4,9 @@ Meteor.publish('hangingprotocols', function() {
 });
 
 Meteor.startup(function() {
-    //HangingProtocols.remove({});
+	// Uncomment this next line to reset all your Protocols on every server reset
+    // HangingProtocols.remove({});
+    
     if (HangingProtocols.find().count() === 0) {
         console.log('Inserting default protocols');
         HangingProtocols.insert(HP.defaultProtocol);

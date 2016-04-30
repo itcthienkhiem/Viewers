@@ -39,11 +39,13 @@
                                     Import <input type="file"> <i class="fa fa-upload"></i>
                                 </a>
                             </li>
+                            {{ #unless locked }}
                             <li>
                                 <a id="renameProtocol">
                                     Rename <i class="fa fa-pencil"></i>
                                 </a>
                             </li>
+                            {{ /unless }}
                             <li>
                                 <a id="saveAsProtocol">
                                     Save As <i class="fa fa-files-o"></i>
@@ -54,11 +56,13 @@
                                     Export <i class="fa fa-download"></i>
                                 </a>
                             </li>
+                            {{ #unless locked }}
                             <li>
                                 <a id="deleteProtocol">
                                     Delete <i class="fa fa-trash-o"></i>
                                 </a>
                             </li>
+                            {{ /unless }}
                         </ul>
                     </div>
                 </div>
@@ -94,9 +98,16 @@
 
         {{#with activeProtocol}}
         <div id="protocolOptions" class="protocolEditorSection">
-            <button id="saveProtocol" type="button" class="btn btn-sm">
-                Save Changes <i class="fa fa-floppy-o"></i>
+            {{ #if locked }}
+            <button id="saveProtocol" type="button" class="btn btn-sm" disabled>
+                Locked <i class="fa fa-lock" aria-hidden="true"></i>
             </button>
+            {{ else }}
+            <button id="saveProtocol" type="button" class="btn btn-sm">
+                Save Changes <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </button>
+            {{ /if }}
+
             {{#if modifiedDate}}
             <p class="lastSavedText">Last saved {{jsDateFromNow modifiedDate}}</p>
             {{/if}}

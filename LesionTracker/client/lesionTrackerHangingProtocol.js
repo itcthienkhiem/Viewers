@@ -1,5 +1,7 @@
 // Define Baseline protocol
 var proto = new HP.Protocol('LT_Baseline');
+proto.locked = true;
+
 var studyDescription = new HP.ProtocolMatchingRule();
 studyDescription.required = true;
 studyDescription.attribute = 'studyDescription';
@@ -70,6 +72,8 @@ HP.lesionTrackerBaselineProtocol.id = 'lesionTrackerBaselineProtocol';
 
 // Define Followup Protocol
 var proto = new HP.Protocol('LT_BaselineFollowup');
+proto.locked = true;
+
 var studyDescription = new HP.ProtocolMatchingRule();
 studyDescription.required = true;
 studyDescription.attribute = 'studyDescription';

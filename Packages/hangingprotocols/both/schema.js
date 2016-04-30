@@ -44,6 +44,12 @@ HP.Protocol = class Protocol {
         // Create a new UUID for this Protocol
         this.id = uuid.new();
 
+        // Store a value which determines whether or not a Protocol is locked
+        // This is probably temporary, since we will eventually have role / user
+        // checks for editing. For now we just need it to prevent changes to the
+        // default protocols.
+        this.locked = false;
+
         // Apply the desired name
         this.name = name;
 
@@ -130,6 +136,10 @@ HP.Protocol = class Protocol {
         // Assign the input name to the Protocol
         this.name = input.name;
 
+        // Retrieve locked status, use !! to make it truthy
+        // so that undefined values will be set to false
+        this.locked = !!input.locked;
+
         // TODO: Check how to regenerate Set from Object
         //this.availableTo = new Set(input.availableTo);
         //this.editableBy = new Set(input.editableBy);
@@ -190,6 +200,9 @@ HP.Protocol = class Protocol {
 
         // Remove any MongoDB ID the current protocol may have had
         delete clonedProtocol._id;
+
+        // Unlock the clone
+        clonedProtocol.locked = false;
 
         // Return the cloned Protocol
         return clonedProtocol;
