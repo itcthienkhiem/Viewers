@@ -1,5 +1,7 @@
 function getDefaultProtocol() {
     var protocol = new HP.Protocol('Default');
+    protocol.id = 'defaultProtocol';
+    protocol.locked = true;
 
     var oneByOne = new HP.ViewportStructure('grid', {
         rows: 1,
@@ -18,6 +20,7 @@ function getDefaultProtocol() {
 
 function getMRTwoByTwoTest() {
     var proto = new HP.Protocol('MR_TwoByTwo');
+    proto.locked = true;
     // Use http://localhost:3000/viewer/1.2.840.113619.2.5.1762583153.215519.978957063.78
 
     var studyInstanceUid = new HP.ProtocolMatchingRule('studyInstanceUid', {

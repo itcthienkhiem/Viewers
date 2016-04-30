@@ -174,6 +174,9 @@ Template.protocolEditor.events({
      */
     'click #renameProtocol': function() {
         var selectedProtocol = this;
+        if (selectedProtocol.locked) {
+            return;
+        }
 
         // Define some details for the text entry dialog
         var title = 'Rename Protocol';
@@ -189,6 +192,8 @@ Template.protocolEditor.events({
                     name: value
                 }
             });
+
+            selectedProtocol.name = value;
         });
     },
     /**
@@ -279,6 +284,9 @@ Template.protocolEditor.events({
      */
     'click #saveProtocol': function() {
         var selectedProtocol = this;
+        if (selectedProtocol.locked) {
+            return;
+        }
 
         // Store the ID for the update call
         var id = selectedProtocol._id;
@@ -339,6 +347,9 @@ Template.protocolEditor.events({
      */
     'click #deleteProtocol': function() {
         var selectedProtocol = this;
+        if (selectedProtocol.locked) {
+            return;
+        }
 
         var options = {
             title: 'Delete Protocol',
@@ -349,8 +360,8 @@ Template.protocolEditor.events({
             // Send a call to remove the Protocol from the HangingProtocols Collection on the server
             Meteor.call('removeHangingProtocol', selectedProtocol._id);
 
-            // Set the Viewer to display the default hanging protocol
-            ProtocolEngine.setHangingProtocol(HP.defaultProtocol);
+            // Reset the ProtocolEngine to the next best match
+            ProtocolEngine.reset();
 
             // Update the protocol selector
             updateProtocolSelect();

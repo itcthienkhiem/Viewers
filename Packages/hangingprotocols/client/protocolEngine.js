@@ -98,6 +98,13 @@ HP.ProtocolEngine = class ProtocolEngine {
         this.LayoutManager = LayoutManager;
         this.studies = studies;
 
+        this.reset();
+    }
+
+    /**
+     * Resets the ProtocolEngine to the best match
+     */
+    reset() {
         var protocol = this.getBestMatch();
         this.setHangingProtocol(protocol);
     }
@@ -141,9 +148,13 @@ HP.ProtocolEngine = class ProtocolEngine {
         });
 
         if (!matched.length) {
+            var defaultProtocol = HangingProtocols.findOne({
+                id: 'defaultProtocol'
+            });
+
             return [{
                 score: 1,
-                protocol: HP.defaultProtocol
+                protocol: defaultProtocol
             }];
         }
 
@@ -151,10 +162,8 @@ HP.ProtocolEngine = class ProtocolEngine {
         return matched;
     }
 
-    // update match collection
-
     /**
-     * Populates the MatchedProtocols Colection by running the matching procedure
+     * Populates the MatchedProtocols Collection by running the matching procedure
      */
     updateMatches() {
         var self = this;
@@ -272,8 +281,6 @@ HP.ProtocolEngine = class ProtocolEngine {
 
         var currentStudy = this.studies[0];
         currentStudy.abstractPriorValue = 0;
-
-        var currentDate = moment(currentStudy.studyDate, 'YYYYMMDD');
 
         var self = this;
         studyMatchingRules.forEach(function(rule) {
