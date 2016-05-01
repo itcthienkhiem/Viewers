@@ -1,3 +1,7 @@
+Template.matchedProtocols.onRendered(function() {
+   $('#matchedProtocols button').tooltip(OHIF.viewer.tooltipConfig);
+});
+
 Template.matchedProtocols.helpers({
     /**
      * Reactively re-render the MatchedProtocols Collection contents

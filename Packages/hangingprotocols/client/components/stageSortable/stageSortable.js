@@ -94,7 +94,7 @@ Template.stageSortable.helpers({
 
         // If the stage is not new, label it by the index it held in the stages array
         // at the previous saved point
-        return 'Stage ' + stageIndex;
+        return 'Stage ' + ++stageIndex;
     }
 });
 
@@ -113,7 +113,7 @@ Template.stageSortable.events({
      * Creates a new stage and adds it to the currently loaded Protocol at
      * the end of the display set sequence
      */
-    'click .addStage': function() {
+    'click #addStage': function() {
         // Retrieve the model describing the current stage
         var stage = ProtocolEngine.getCurrentStageModel();
 
