@@ -19,10 +19,11 @@ Array.prototype.move = function(oldIndex, newIndex) {
  *
  * @param protocol The Hanging Protocol to search within
  * @param id The id of the current stage to search for
- * @returns {number} The index of the specified stage within the Protocol
+ * @returns {number} The index of the specified stage within the Protocol,
+ *                   or undefined if it is not present.
  */
 function getStageIndex(protocol, id) {
-    var stageIndex = 0;
+    var stageIndex;
     protocol.stages.forEach(function(stage, index) {
         if (stage.id === id) {
             stageIndex = index;
@@ -48,13 +49,52 @@ Template.stageSortable.helpers({
             return;
         }
 
-        // Retrieve the index of this stage in the display set sequences
-        var stageIndex = getStageIndex(ProtocolEngine.protocol, this.id);
-
         var currentStage = ProtocolEngine.getCurrentStageModel();
 
         // Return a boolean representing if the active stage and the specified stage index are equal
         return (this.id === currentStage.id);
+    },
+    /**
+     * Retrieves the index of the stage at the point it was last saved
+     *
+     * @returns {number|*}
+     */
+    stageLabel: function() {
+        var stage = this;
+
+        // If no Protocol Engine has been defined yet, stop here to prevent errors
+        if (!ProtocolEngine) {
+            return;
+        }
+
+        // Retrieve the last saved copy of the current protocol
+        var lastSavedCopy = HangingProtocols.findOne(ProtocolEngine.protocol._id);
+
+        // Try to find the index of this stage in the previously saved copy
+        var stageIndex = getStageIndex(lastSavedCopy, stage.id);
+
+        // If the stage is new, and therefore wasn't present in the last save,
+        // retrieve it's index in the array of new stage ids and use that for
+        // the label. Also include the time since it was created.
+        if (stageIndex === undefined) {
+            // Reactively update this helper every minute
+            Session.get('timeAgoVariable');
+
+            // Find the index of the stage in the array of newly created stage IDs
+            var newStageNumber = ProtocolEngine.newStageIds.indexOf(stage.id) + 1;
+
+            // Use Moment.js to format the createdDate of this stage relative to the
+            // current time
+            var dateCreatedFromNow = moment(stage.createdDate).fromNow();
+
+            // Return the label for the new stage,
+            // e.g. "New Stage 1 (created a few seconds ago)"
+            return 'New Stage ' + newStageNumber + ' (created ' + dateCreatedFromNow + ')';
+        }
+
+        // If the stage is not new, label it by the index it held in the stages array
+        // at the previous saved point
+        return 'Stage ' + stageIndex;
     }
 });
 
@@ -85,6 +125,9 @@ Template.stageSortable.events({
 
         // Append this new stage to the end of the display set sequence
         ProtocolEngine.protocol.stages.push(newStage);
+
+        // Append the new stage the list of new stage IDs, so we can label it properly
+        ProtocolEngine.newStageIds.push(newStage.id);
 
         // Calculate the index of the last stage in the display set sequence
         var stageIndex = ProtocolEngine.protocol.stages.length - 1;

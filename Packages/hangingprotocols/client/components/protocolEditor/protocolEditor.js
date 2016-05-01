@@ -76,7 +76,7 @@ Template.protocolEditor.helpers({
 
         // Make sure that the number of referenced priors is correct
         ProtocolEngine.protocol.updateNumberOfPriorsReferenced();
-
+        
         // Otherwise, return the active Hanging Protocol
         return ProtocolEngine.protocol;
     },

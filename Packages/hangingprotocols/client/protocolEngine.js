@@ -99,6 +99,10 @@ HP.ProtocolEngine = class ProtocolEngine {
         this.studies = studies;
 
         this.reset();
+
+        // Create an array for new stage ids to be stored
+        // while editing a stage
+        this.newStageIds = [];
     }
 
     /**
@@ -477,6 +481,9 @@ HP.ProtocolEngine = class ProtocolEngine {
      * @param updateViewports
      */
     setHangingProtocol(newProtocol, updateViewports=true) {
+        // Reset the array of newStageIds
+        this.newStageIds = [];
+
         if (HP.Protocol.prototype.isPrototypeOf(newProtocol)) {
             this.protocol = newProtocol;
         } else {
