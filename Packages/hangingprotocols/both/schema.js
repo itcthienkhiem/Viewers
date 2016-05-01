@@ -375,6 +375,9 @@ HP.Stage = class Stage {
 
         // Create an empty array for the Viewports
         this.viewports = [];
+
+        // Set the created and modified dates to Now
+        this.createdDate = new Date();
     }
 
     /**
