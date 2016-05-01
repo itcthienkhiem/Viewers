@@ -75,11 +75,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <h4>Protocol Applicability</h4>
+                        <h3>Protocol Applicability</h3>
+                        <hr/>
                         {{ >ruleTable level="protocol" rules=protocolMatchingRules attributes=studyAttributes}}
                     </div>
                     <div class="row">
-                        <h4>Stages</h4>
+                        <h3>Stages</h3>
+                        <hr/>
                         {{ >stageSortable stages=stages activeStageIndex=stage}}
                     </div>
                 </div>
@@ -88,7 +90,15 @@
 
             <div id="activeViewportEditor" class="tab-pane">
                 {{ #if activeViewportUndefined }}
-                    <p>Select a Viewport.</p>
+                    <div class="noActiveViewport">
+                        <h2>Select a Viewport</h2>
+                        <hr/>
+                        <p>
+                            Upon selecting a Viewport, this section will show a list of rules that can be used
+                            to determine which images will populate the specified Viewport. You can specify these
+                            rules to be evaluated at the study, series, or image level.
+                        </p>
+                    </div>
                 {{ /if }}
                 {{#with activeStage}}
                 {{ >stageDetails }}
