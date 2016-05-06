@@ -154,9 +154,13 @@ function getAbstractPriorValue(imageId) {
     });
 
     var priorIndex = 0;
+
+    // TODO: Check what the abstract prior value should equal for an unrelated study?
     studies.forEach(function(study, index) {
         if (study.studyInstanceUid === priorStudy.studyInstanceUid) {
-            priorIndex = index;
+            // Abstract prior index starts from 1 in the DICOM standard
+            // so we add 1 here
+            priorIndex = index + 1;
             return false;
         }
     });

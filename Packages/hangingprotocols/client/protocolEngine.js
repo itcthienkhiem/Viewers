@@ -1,11 +1,45 @@
+// Define a global variable that will be used to refer to the Protocol Engine
+// It must be populated by HP.setEngine when the Viewer is initialized and a ProtocolEngine
+// is instantiated on top of the LayoutManager. If the global ProtocolEngine variable remains
+// undefined, none of the HangingProtocol functions will operate.
 ProtocolEngine = undefined;
 
+/**
+ * Sets the ProtocolEngine global given an instantiated ProtocolEngine. This is done so that
+ * The functions in the package can depend on a ProtocolEngine variable, but this variable does
+ * not have to be exported from the application level.
+ *
+ * (There may be a better way to do this, but for now this works with no real downside)
+ *
+ * @param protocolEngine An instantiated ProtocolEngine linked to a LayoutManager from the
+ *                       Viewerbase package
+ */
 HP.setEngine = function(protocolEngine) {
     ProtocolEngine = protocolEngine;
 };
 
+// Define an empty object to store callbacks that are used to retrieve custom attributes
+// The simplest example for a custom attribute is the Timepoint type (i.e. baseline or follow-up)
+// used in the LesionTracker application.
+//
+// Timepoint type can be obtained given a studyId, and this is done through a custom callback.
+// Developers can define attributes (i.e. attributeId = timepointType) with a name ('Timepoint Type')
+// and a callback function that is used to calculate them.
+//
+// The input to the callback, which is called during viewport-image matching rule evaluation
+// is the set of attributes that contains the specified attribute. In our example, timepointType is
+// linked to the study attributes, and so the inputs to the callback is an object containing
+// the study attributes.
 HP.CustomAttributeRetrievalCallbacks = {};
 
+/**
+ * Adds a custom attribute to be used in the HangingProtocol UI and matching rules, including a
+ * callback that will be used to calculate the attribute value.
+ *
+ * @param attributeId The ID used to refer to the attribute (e.g. 'timepointType')
+ * @param attributeName The name of the attribute to be displayed (e.g. 'Timepoint Type')
+ * @param callback The function used to calculate the attribute value from the other attributes at its level (e.g. study/series/image)
+ */
 HP.addCustomAttribute = function(attributeId, attributeName, callback) {
     HP.CustomAttributeRetrievalCallbacks[attributeId] = {
         name: attributeName,
@@ -14,17 +48,26 @@ HP.addCustomAttribute = function(attributeId, attributeName, callback) {
 };
 
 
+// Define an empty object to store callbacks that are used to apply custom viewport settings
+// after a viewport is rendered.
 HP.CustomViewportSettings = {};
 
-HP.addCustomViewportSetting = function(attributeId, attributeName, options, callback) {
-    HP.CustomViewportSettings[attributeId] = {
-        id: attributeId,
-        text: attributeName,
+/**
+ * Adds a custom setting that can be chosen in the HangingProtocol UI and applied to a Viewport
+ *
+ * @param settingId The ID used to refer to the setting (e.g. 'displayCADMarkers')
+ * @param settingName The name of the setting to be displayed (e.g. 'Display CAD Markers')
+ * @param options
+ * @param callback A function to be run after a viewport is rendered with a series
+ */
+HP.addCustomViewportSetting = function(settingId, settingName, options, callback) {
+    HP.CustomViewportSettings[settingId] = {
+        id: settingId,
+        text: settingName,
         options: options,
         callback: callback
     };
 };
-
 
 Meteor.startup(function() {
     HP.addCustomViewportSetting('wlPreset', 'Window/Level Preset', Object.keys(OHIF.viewer.wlPresets), function(element, optionValue) {
@@ -48,7 +91,7 @@ HP.match = function(attributes, rules) {
 
     var requiredFailed = false;
 
-    rules.forEach(function(rule) {
+    rules.forEach(rule => {
         var attribute = rule.attribute;
 
         // If the attributes we are testing (e.g. study, series, or instance attributes) do
@@ -146,14 +189,16 @@ HP.ProtocolEngine = class ProtocolEngine {
     findMatchByStudy(study) {
         var matched = [];
 
-        var self = this;
-        HangingProtocols.find().forEach(function(protocol) {
-            var rules = protocol.protocolMatchingRules;
-            if (!rules || !rules.length) {
+        HangingProtocols.find().forEach(protocol => {
+            // Clone the protocol's protocolMatchingRules array
+            // We clone it so that we don't accidentally add the
+            // numberOfPriorsReferenced rule to the Protocol itself.
+            var rules = protocol.protocolMatchingRules.slice(0);
+            if (!rules) {
                 return;
             }
 
-            study.numberOfPriorsReferenced = self.getNumberOfAvailablePriors(study);
+            study.numberOfPriorsReferenced = this.getNumberOfAvailablePriors(study);
             var rule = new HP.ProtocolMatchingRule('numberOfPriorsReferenced', {
                 numericality: {
                     greaterThanOrEqualTo: protocol.numberOfPriorsReferenced
@@ -191,14 +236,12 @@ HP.ProtocolEngine = class ProtocolEngine {
      * Populates the MatchedProtocols Collection by running the matching procedure
      */
     updateMatches() {
-        var self = this;
-
         // Clear all data from the MatchedProtocols Collection
         MatchedProtocols.remove({});
 
         // For each study, find the matching protocols
-        this.studies.forEach(function(study) {
-            var matched = self.findMatchByStudy(study);
+        this.studies.forEach(study => {
+            var matched = this.findMatchByStudy(study);
 
             // For each matched protocol, check if it is already in MatchedProtocols
             matched.forEach(function(matchedDetail) {
@@ -235,6 +278,13 @@ HP.ProtocolEngine = class ProtocolEngine {
         return sorted[0];
     }
 
+    /**
+     * Calculates the number of previous studies in the cached Worklist that
+     * have the same patientId and an earlier study date
+     *
+     * @param study The input study
+     * @returns {any|*} The number of available prior studies with the same patientId
+     */
     getNumberOfAvailablePriors(study) {
         var studies = WorklistStudies.find({
             patientId: study.patientId,
@@ -270,7 +320,8 @@ HP.ProtocolEngine = class ProtocolEngine {
             if (priorIndex === (studies.length - 1)) {
                 priorStudy.abstractPriorValue = -1;
             } else {
-                priorStudy.abstractPriorValue = priorIndex;
+                // Abstract prior index starts from 1 in the DICOM standard
+                priorStudy.abstractPriorValue = priorIndex + 1;
             }
 
             // Calculate the relative time using Moment.js
@@ -307,8 +358,7 @@ HP.ProtocolEngine = class ProtocolEngine {
         var currentStudy = this.studies[0];
         currentStudy.abstractPriorValue = 0;
 
-        var self = this;
-        studyMatchingRules.forEach(function(rule) {
+        studyMatchingRules.forEach(rule => {
             if (rule.attribute === 'abstractPriorValue') {
                 var validatorType = Object.keys(rule.constraint)[0];
                 var validator = Object.keys(rule.constraint[validatorType])[0];
@@ -351,9 +401,9 @@ HP.ProtocolEngine = class ProtocolEngine {
                         study.abstractPriorValue = abstractPriorValue;
 
                         ViewerStudies.insert(study);
-                        self.studies.push(study);
-                        self.matchImages(viewport);
-                        self.updateViewports(viewport);
+                        this.studies.push(study);
+                        this.matchImages(viewport);
+                        this.updateViewports();
                     });
                 }
             }
@@ -429,13 +479,26 @@ HP.ProtocolEngine = class ProtocolEngine {
         };
     }
 
-    // Redraw viewports given stage
+    /**
+     * Rerenders viewports that are part of the current ProtocolEngine's LayoutManager
+     * using the matching rules internal to each viewport.
+     *
+     * If this function is provided the index of a viewport, only the specified viewport
+     * is rerendered.
+     *
+     * @param viewportIndex
+     */
     updateViewports(viewportIndex) {
+        // Make sure we have an active protocol with a non-empty array of display sets
         if (!this.protocol || !this.protocol.stages || !this.protocol.stages.length) {
             return;
         }
 
+        // Retrieve the current display set in the display set sequence
         var stageModel = this.getCurrentStageModel();
+
+        // If the current display set does not fulfill the requirements to be displayed,
+        // stop here.
         if (!stageModel ||
             !stageModel.viewportStructure ||
             !stageModel.viewports ||
@@ -443,36 +506,42 @@ HP.ProtocolEngine = class ProtocolEngine {
             return;
         }
 
+        // Retrieve the layoutTemplate associated with the current display set's viewport structure
+        // If no such template name exists, stop here.
         var layoutTemplateName = stageModel.viewportStructure.getLayoutTemplateName();
         if (!layoutTemplateName) {
             return;
         }
 
+        // Retrieve the properties associated with the current display set's viewport structure template
+        // If no such layout properties exist, stop here.
         var layoutProps = stageModel.viewportStructure.properties;
         if (!layoutProps) {
             return;
         }
 
-        var viewports = stageModel.viewports;
-
+        // Create an empty array to store the output viewportData
         var viewportData = [];
 
+        // Empty the matchDetails associated with the ProtocolEngine.
+        // This will be used to store the pass/fail details and score
+        // for each of the viewport matching procedures
         this.matchDetails = [];
 
-        var self = this;
-        viewports.forEach(function(viewport, viewportIndex) {
-            var details = self.matchImages(viewport);
-            self.matchDetails[viewportIndex] = details;
+        // Loop through each viewport in the c
+        stageModel.viewports.forEach((viewport, viewportIndex) => {
+            var details = this.matchImages(viewport);
+            this.matchDetails[viewportIndex] = details;
 
             // imageViewerViewports occasionally needs relevant layout data in order to set
             // the element style of the viewport in question
             var currentViewportData = $.extend({
                 viewportIndex: viewportIndex,
-                viewport: viewport.viewportSettings,
+                viewport: viewport.viewportSettings
             }, layoutProps);
 
             var customSettings = [];
-            Object.keys(viewport.viewportSettings).forEach(function(id) {
+            Object.keys(viewport.viewportSettings).forEach(id => {
                 var setting = HP.CustomViewportSettings[id];
                 if (!setting) {
                     return;
@@ -510,12 +579,11 @@ HP.ProtocolEngine = class ProtocolEngine {
         this.LayoutManager.layoutProps = layoutProps;
         this.LayoutManager.viewportData = viewportData;
 
-        if (viewportIndex === undefined) {
-            this.LayoutManager.updateViewports();
-        } else if (viewportData[viewportIndex]) {
+        if (viewportIndex !== undefined && viewportData[viewportIndex]) {
             this.LayoutManager.rerenderViewportWithNewSeries(viewportIndex, viewportData[viewportIndex]);
+        } else {
+            this.LayoutManager.updateViewports();
         }
-
     }
 
     /**
@@ -563,7 +631,7 @@ HP.ProtocolEngine = class ProtocolEngine {
     /**
      * Changes the current stage to a new stage index in the display set sequence
      *
-     * @param newStage An integer value specifying the index of the desired Stage
+     * @param stage An integer value specifying the index of the desired Stage
      */
     setCurrentProtocolStage(stage) {
         if (!this.protocol || !this.protocol.stages || !this.protocol.stages.length) {

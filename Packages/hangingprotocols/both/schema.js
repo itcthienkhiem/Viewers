@@ -144,30 +144,28 @@ HP.Protocol = class Protocol {
         //this.availableTo = new Set(input.availableTo);
         //this.editableBy = new Set(input.editableBy);
 
-        var self = this;
-
         // If the input contains Protocol matching rules
         if (input.protocolMatchingRules) {
-            input.protocolMatchingRules.forEach(function(ruleObject) {
+            input.protocolMatchingRules.forEach(ruleObject => {
                 // Create new Rules from the stored data
                 var rule = new HP.ProtocolMatchingRule();
                 rule.fromObject(ruleObject);
 
                 // Add them to the Protocol
-                self.protocolMatchingRules.push(rule);
+                this.protocolMatchingRules.push(rule);
             });
         }
 
         // If the input contains data for various Stages in the
         // display set sequence
         if (input.stages) {
-            input.stages.forEach(function(stageObject) {
+            input.stages.forEach(stageObject => {
                 // Create Stages from the stored data
                 var stage = new HP.Stage();
                 stage.fromObject(stageObject);
 
                 // Add them to the Protocol
-                self.stages.push(stage);
+                this.stages.push(stage);
             });
         }
     }
@@ -429,17 +427,15 @@ HP.Stage = class Stage {
         this.viewportStructure = new HP.ViewportStructure();
         this.viewportStructure.fromObject(input.viewportStructure);
 
-        var self = this;
-
         // If any viewports are present in the input object
         if (input.viewports) {
-            input.viewports.forEach(function(viewportObject) {
+            input.viewports.forEach(viewportObject => {
                 // Create a new Viewport with their data
                 var viewport = new HP.Viewport();
                 viewport.fromObject(viewportObject);
 
                 // Add it to the viewports array
-                self.viewports.push(viewport);
+                this.viewports.push(viewport);
             });
         }
     }
@@ -521,35 +517,33 @@ HP.Viewport = class Viewport {
      * @param input The Viewport as a JavaScript Object, e.g. retrieved from MongoDB or JSON
      */
     fromObject(input) {
-        var self = this;
-
         // If ImageMatchingRules exist, create them from the Object data
         // and add them to the Viewport's imageMatchingRules array
         if (input.imageMatchingRules) {
-            input.imageMatchingRules.forEach(function(ruleObject) {
+            input.imageMatchingRules.forEach(ruleObject => {
                 var rule = new HP.ImageMatchingRule();
                 rule.fromObject(ruleObject);
-                self.imageMatchingRules.push(rule);
+                this.imageMatchingRules.push(rule);
             });
         }
 
         // If SeriesMatchingRules exist, create them from the Object data
         // and add them to the Viewport's seriesMatchingRules array
         if (input.seriesMatchingRules) {
-            input.seriesMatchingRules.forEach(function(ruleObject) {
+            input.seriesMatchingRules.forEach(ruleObject => {
                 var rule = new HP.SeriesMatchingRule();
                 rule.fromObject(ruleObject);
-                self.seriesMatchingRules.push(rule);
+                this.seriesMatchingRules.push(rule);
             });
         }
 
         // If StudyMatchingRules exist, create them from the Object data
         // and add them to the Viewport's studyMatchingRules array
         if (input.studyMatchingRules) {
-            input.studyMatchingRules.forEach(function(ruleObject) {
+            input.studyMatchingRules.forEach(ruleObject => {
                 var rule = new HP.StudyMatchingRule();
                 rule.fromObject(ruleObject);
-                self.studyMatchingRules.push(rule);
+                this.studyMatchingRules.push(rule);
             });
         }
     }
