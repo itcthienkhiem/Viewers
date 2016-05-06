@@ -397,7 +397,7 @@ HP.ProtocolEngine = class ProtocolEngine {
                 });
 
                 if (!alreadyLoaded) {
-                    getStudyMetadata(priorStudy.studyInstanceUid, function(study) {
+                    getStudyMetadata(priorStudy.studyInstanceUid, study => {
                         study.abstractPriorValue = abstractPriorValue;
 
                         ViewerStudies.insert(study);
