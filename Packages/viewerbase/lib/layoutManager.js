@@ -131,6 +131,7 @@ LayoutManager = class LayoutManager {
             viewportIndex: viewportIndex,
             seriesInstanceUid: data.seriesInstanceUid,
             studyInstanceUid: data.studyInstanceUid,
+            renderedCallback: data.renderedCallback,
             currentImageIdIndex: 0
         };
 

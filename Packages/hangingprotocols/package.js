@@ -63,6 +63,10 @@ Package.onUse(function(api) {
     api.addFiles('client/components/ruleEntryDialog/ruleEntryDialog.styl', 'client');
     api.addFiles('client/components/ruleEntryDialog/ruleEntryDialog.js', 'client');
 
+    api.addFiles('client/components/settingEntryDialog/settingEntryDialog.html', 'client');
+    api.addFiles('client/components/settingEntryDialog/settingEntryDialog.styl', 'client');
+    api.addFiles('client/components/settingEntryDialog/settingEntryDialog.js', 'client');
+
     api.addFiles('client/components/textEntryDialog/textEntryDialog.html', 'client');
     api.addFiles('client/components/textEntryDialog/textEntryDialog.styl', 'client');
     api.addFiles('client/components/textEntryDialog/textEntryDialog.js', 'client');

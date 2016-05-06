@@ -220,9 +220,15 @@ Template.stageSortable.onRendered(function() {
     // list automatically updates) list which is also sortable using Rubaxa's
     // Sortable plugin.
     this.autorun(function() {
+        console.log('Template CurrentData autorun');
+        console.log(Template.currentData());
         // This autorun function runs every time the Template data changes
         // It's sole purpose is to create the Sortable object from the data
         Template.currentData();
+
+        if (sortable) {
+            sortable.destroy();
+        }
 
         // Retrieve the element to be enabled as a Sortable
         var element = document.getElementById('stageSortable');
@@ -232,6 +238,7 @@ Template.stageSortable.onRendered(function() {
     });
 
     this.autorun(function() {
+        console.log('LayoutManagerUpdated autorun');
         // This autorun function resets the DOM sorting performed by the
         // plugin. It fires immediately after the onSort event and its purpose
         // is to manually reset the Sortable plugin's representation of the DOM
@@ -243,6 +250,8 @@ Template.stageSortable.onRendered(function() {
         // If the sortable list is present and an original order is defined
         // (e.g. immediately after onSort)
         if (sortable && originalOrder) {
+            console.log('resetting DOM sorting');
+
             // Undo the local DOM sorting using Sortable's sort function
             // and the stored order
             sortable.sort(originalOrder);

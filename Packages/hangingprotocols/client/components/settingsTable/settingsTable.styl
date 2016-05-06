@@ -16,7 +16,8 @@ table.settingsTable
         color: #ffffff
         text-align: center
 
-        span.addSetting
+        .editSetting
+        .deleteSetting
           &:hover, &:active
             cursor:pointer
             color: #48d3ff
@@ -27,3 +28,17 @@ table.settingsTable
 
       td:first-child
         text-align: left
+
+.addSettingContainer
+  margin: 10px 0
+  text-align: center
+  color: #ffffff
+
+  .addSetting
+    &:hover, &:active
+      cursor: pointer
+      color: #48d3ff
+
+      -webkit-transition: all 0.1s ease
+      -moz-transition: all 0.1s ease
+      transition: all 0.1s ease

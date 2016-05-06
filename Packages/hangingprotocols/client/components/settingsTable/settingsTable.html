@@ -11,6 +11,8 @@
             {{#if value}}
             <tr>
                 <td>
+                    <i class="fa fa-pencil editSetting"></i>
+                    <i class="fa fa-trash deleteSetting"></i>
                     {{prettyPrintStringify key}}
                 </td>
                 <td>
@@ -21,4 +23,9 @@
             {{ /each }}
         </tbody>
     </table>
+    <div class="addSettingContainer">
+        <span class="addSetting">
+            Add Display Setting <i class="fa fa-plus-circle"></i>
+        </span>
+    </div>
 </template>

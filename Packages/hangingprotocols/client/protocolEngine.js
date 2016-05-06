@@ -13,6 +13,27 @@ HP.addCustomAttribute = function(attributeId, attributeName, callback) {
     };
 };
 
+
+HP.CustomViewportSettings = {};
+
+HP.addCustomViewportSetting = function(attributeId, attributeName, options, callback) {
+    HP.CustomViewportSettings[attributeId] = {
+        id: attributeId,
+        text: attributeName,
+        options: options,
+        callback: callback
+    };
+};
+
+
+Meteor.startup(function() {
+    HP.addCustomViewportSetting('wlPreset', 'Window/Level Preset', Object.keys(OHIF.viewer.wlPresets), function(element, optionValue) {
+        if (OHIF.viewer.wlPresets.hasOwnProperty(optionValue)) {
+            applyWLPreset(optionValue, element);
+        }
+    });
+});
+
 // Log decisions regarding matching
 HP.match = function(attributes, rules) {
     var options = {
@@ -448,8 +469,32 @@ HP.ProtocolEngine = class ProtocolEngine {
             var currentViewportData = $.extend({
                 viewportIndex: viewportIndex,
                 viewport: viewport.viewportSettings,
-                toolSettings: viewport.toolSettings
             }, layoutProps);
+
+            var customSettings = [];
+            Object.keys(viewport.viewportSettings).forEach(function(id) {
+                var setting = HP.CustomViewportSettings[id];
+                if (!setting) {
+                    return;
+                }
+
+                var value = viewport.viewportSettings[id];
+                customSettings.push({
+                    id: setting.id,
+                    value: value
+                });
+            });
+
+            currentViewportData.renderedCallback = function(element) {
+                console.log('renderedCallback for ' + element.id);
+                customSettings.forEach(function(customSetting) {
+                    console.log('Applying custom setting: ' + customSetting.id);
+                    console.log('with value: ' + customSetting.value);
+
+                    var setting = HP.CustomViewportSettings[id];
+                    setting.callback(element, customSetting.value);
+                });
+            };
 
             if (details.bestMatch) {
                 currentViewportData.studyInstanceUid = details.bestMatch.studyInstanceUid;

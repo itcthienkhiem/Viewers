@@ -4,6 +4,12 @@
             <div class="col-xs-12">
                 {{ #with activeViewport }}
                 <div class="stageEditorSection">
+                    <h3>Viewport Settings</h3>
+                    <hr/>
+                    {{ >settingsTable settings=viewportSettings}}
+                </div>
+
+                <div class="stageEditorSection">
                     <h3>Study Matching Rules</h3>
                     <hr/>
                     {{ >ruleTable level="study" rules=studyMatchingRules attributes=studyAttributes}}

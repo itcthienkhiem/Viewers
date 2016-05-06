@@ -376,7 +376,7 @@ HP.Stage = class Stage {
         // Create an empty array for the Viewports
         this.viewports = [];
 
-        // Set the created and modified dates to Now
+        // Set the created date to Now
         this.createdDate = new Date();
     }
 
@@ -508,6 +508,7 @@ HP.ViewportStructure = class ViewportStructure {
  */
 HP.Viewport = class Viewport {
     constructor() {
+        this.viewportSettings = {};
         this.imageMatchingRules = [];
         this.seriesMatchingRules = [];
         this.studyMatchingRules = [];

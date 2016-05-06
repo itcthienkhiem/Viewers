@@ -2,97 +2,14 @@ HP.attributeDefaults = {
     abstractPriorValue: 0
 };
 
-HP.viewportSettingsTypes = {
-    /*scale: {
-     id: 'scale',
-     name: 'Scale',
-     values: {
-     scale: {
-     default: 1.0,
-     min: 0.05,
-     max: 20,
-     step: 0.2
-     }
-     }
-     },
-     translation: {
-     id: 'translation',
-     name: 'Translation',
-     values: {
-     x: {
-     default: 0
-     },
-     y: {
-     default: 0
-     }
-     }
-     },*/
-    voi: {
-        id: 'voi',
-        name: 'Windowing',
-        values: {
-            windowWidth: {
-                name: 'Window Width',
-                default: 256
-            },
-            windowCenter: {
-                name: 'Window Center',
-                default: 128
-            }
-        }
-
-    },
+HP.displaySettings = {
     invert: {
         id: 'invert',
-        name: 'Invert',
-        values: {
-            invert: {
-                default: false
-            }
-        }
-    },
-    /*pixelReplication: {
-     id: 'pixelReplication',
-     name: 'Interpolation',
-     values: {
-     pixelReplication: {
-     default: true
-     }
-     }
-     },*/
-    hflip: {
-        id: 'hflip',
-        name: 'Horizontal flip',
-        values: {
-            hflip: {
-                default: false
-            }
-        }
-    },
-    vflip: {
-        id: 'vflip',
-        name: 'Vertical flip',
-        values: {
-            vflip: {
-                default: false
-            }
-        }
-    },
-    /*rotation: {
-     id: 'rotation',
-     name: 'Rotation (degrees)',
-     values: {
-     rotation: {
-     default: 0,
-     min: -360,
-     max: 360,
-     step: 90
-     }
-     }
-     }*/
+        text: 'Show Grayscale Inverted',
+        default: 'NO',
+        options: ['YES', 'NO']
+    }
 };
-
-HP.toolSettingsTypes = [];
 
 HP.studyAttributes = [{
     id: 'patientId',
