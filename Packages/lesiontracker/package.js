@@ -7,6 +7,7 @@ Package.describe({
 Package.onUse(function(api) {
     api.versionsFrom('1.2.0.2');
 
+    api.use('ecmascript');
     api.use('standard-app-packages');
     api.use('jquery');
     api.use('stylus');
@@ -32,7 +33,13 @@ Package.onUse(function(api) {
     api.addFiles('client/collections/subscriptions.js', 'client');
 
     // Importable colors / typography settings
-    api.addFiles('client/app.styl', 'client', {
+    api.addFiles([
+        'client/app.styl',
+        'client/styles/global.styl',
+        'client/styles/mixins.styl',
+        'client/styles/spacings.styl',
+        'client/styles/variables.styl'
+    ], 'client', {
         isImport: true
     });
 
@@ -84,11 +91,11 @@ Package.onUse(function(api) {
     api.addFiles('client/components/viewerMain/viewerMain.html', 'client');
     api.addFiles('client/components/viewerMain/viewerMain.styl', 'client');
     api.addFiles('client/components/viewerMain/viewerMain.js', 'client');
-    
+
     api.addFiles('client/components/lesionTracker/lesionTracker.html', 'client');
     api.addFiles('client/components/lesionTracker/lesionTracker.styl', 'client');
     api.addFiles('client/components/lesionTracker/lesionTracker.js', 'client');
-    
+
     api.addFiles('client/components/lesionTrackerLayout/lesionTrackerLayout.html', 'client');
 
     api.addFiles('client/components/additionalMeasurements/additionalMeasurements.html', 'client');
@@ -121,7 +128,7 @@ Package.onUse(function(api) {
     api.addFiles('client/components/lesionLocationDialog/lesionLocationDialog.html', 'client');
     api.addFiles('client/components/lesionLocationDialog/lesionLocationDialog.js', 'client');
     api.addFiles('client/components/lesionLocationDialog/lesionLocationDialog.styl', 'client');
-    
+
     api.addFiles('client/components/lesionTable/lesionTable.html', 'client');
     api.addFiles('client/components/lesionTable/lesionTable.styl', 'client');
     api.addFiles('client/components/lesionTable/lesionTable.js', 'client');
@@ -146,18 +153,27 @@ Package.onUse(function(api) {
     api.addFiles('client/components/nonTargetLesionDialog/nonTargetLesionDialog.styl', 'client');
     api.addFiles('client/components/nonTargetLesionDialog/nonTargetLesionDialog.js', 'client');
 
+    api.addFiles('client/components/roundedButtonGroup/roundedButtonGroup.html', 'client');
+    api.addFiles('client/components/roundedButtonGroup/roundedButtonGroup.styl', 'client');
+    api.addFiles('client/components/roundedButtonGroup/roundedButtonGroup.js', 'client');
+
     api.addFiles('client/components/studyDateList/studyDateList.html', 'client');
     api.addFiles('client/components/studyDateList/studyDateList.styl', 'client');
     api.addFiles('client/components/studyDateList/studyDateList.js', 'client');
 
+    api.addFiles('client/components/studyTimepointBrowser/studyTimepoint.html', 'client');
+    api.addFiles('client/components/studyTimepointBrowser/studyTimepoint.js', 'client');
     api.addFiles('client/components/studyTimepointBrowser/studyTimepointBrowser.html', 'client');
     api.addFiles('client/components/studyTimepointBrowser/studyTimepointBrowser.styl', 'client');
     api.addFiles('client/components/studyTimepointBrowser/studyTimepointBrowser.js', 'client');
+    api.addFiles('client/components/studyTimepointBrowser/studyTimepointStudy.html', 'client');
+    api.addFiles('client/components/studyTimepointBrowser/studyTimepointStudy.styl', 'client');
+    api.addFiles('client/components/studyTimepointBrowser/studyTimepointStudy.js', 'client');
 
     api.addFiles('client/components/studyAssociationTable/studyAssociationTable.html', 'client');
     api.addFiles('client/components/studyAssociationTable/studyAssociationTable.styl', 'client');
     api.addFiles('client/components/studyAssociationTable/studyAssociationTable.js', 'client');
-    
+
     api.addFiles('client/components/conformanceCheckFeedback/conformanceCheckFeedback.html', 'client');
     api.addFiles('client/components/conformanceCheckFeedback/conformanceCheckFeedback.styl', 'client');
     api.addFiles('client/components/conformanceCheckFeedback/conformanceCheckFeedback.js', 'client');
