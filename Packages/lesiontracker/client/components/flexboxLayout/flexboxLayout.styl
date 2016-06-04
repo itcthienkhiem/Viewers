@@ -16,15 +16,15 @@
     -o-transition: $sidebarTransition
     -moz-transition: $sidebarTransition
     transition: $sidebarTransition
-    width: $sidebarMenuWidth
 
     .timepointButtonContainer
       height: 60px
 
   .sidebar-left
+    width: $studiesSidebarMenuWidth
     order: 1
     flex: 0
-    left: - $sidebarMenuWidth
+    left: - $studiesSidebarMenuWidth
     border-right: $uiBorderThickness $uiBorderColor solid
 
     &.sidebar-open
@@ -42,18 +42,22 @@
     transform: translate3d(0,0,0);
 
     &.sidebar-left-open.sidebar-right-open
-      width: 'calc(100% - %s)' % (2 * $sidebarMenuWidth)
+      width: 'calc(100% - %s)' % ($studiesSidebarMenuWidth + $lesionsSidebarMenuWidth)
 
-    &.sidebar-right-open, &.sidebar-left-open
-      width: 'calc(100% - %s)' % $sidebarMenuWidth
+    &.sidebar-right-open
+      width: 'calc(100% - %s)' % $lesionsSidebarMenuWidth
 
     &.sidebar-left-open
-      transform: translate3d($sidebarMenuWidth,0,0);
+      width: 'calc(100% - %s)' % $studiesSidebarMenuWidth
+
+    &.sidebar-left-open
+      transform: translate3d($studiesSidebarMenuWidth,0,0);
 
   .sidebar-right
+    width: $lesionsSidebarMenuWidth
     order: 3
     flex: 0
-    right: - $sidebarMenuWidth
+    right: - $lesionsSidebarMenuWidth
     border-left: $uiBorderThickness $uiBorderColor solid
 
     &.sidebar-open

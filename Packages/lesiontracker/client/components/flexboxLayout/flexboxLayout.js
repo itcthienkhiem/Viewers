@@ -27,6 +27,7 @@ Template.flexboxLayout.helpers({
     timepointViewType() {
         return Template.instance().timepointViewType;
     },
+
     buttonGroupData() {
         const instance = Template.instance();
         return {
@@ -40,18 +41,22 @@ Template.flexboxLayout.helpers({
             }]
         };
     },
+
     studySidebarOpen() {
         const instance = Template.instance();
         return instance.state.get('studySidebarOpen');
     },
+
     lesionSidebarOpen() {
         const instance = Template.instance();
         return instance.state.get('lesionSidebarOpen');
     },
+
     additionalMeasurementsSidebarOpen() {
         const instance = Template.instance();
         return instance.state.get('additionalMeasurementsSidebarOpen');
     },
+
     rightSidebarOpen() {
         const instance = Template.instance();
         const lesionSidebarOpen = instance.data.state.get('lesionSidebarOpen');

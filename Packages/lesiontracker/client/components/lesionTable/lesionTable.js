@@ -36,9 +36,19 @@ Template.lesionTable.helpers({
             }
         });
     },
-    lesionTableLayout: function() {
-        var instance = Template.instance();
-        return instance.lesionTableLayout.get();
+
+    buttonGroupData() {
+        const instance = Template.instance();
+        return {
+            value: instance.lesionTableLayout,
+            options: [{
+                key: 'comparison',
+                text: 'Comparison'
+            }, {
+                key: 'key',
+                text: 'Key Timepoints'
+            }]
+        };
     }
 });
 
@@ -50,10 +60,6 @@ Template.lesionTable.events({
           var measurementId = $(e.currentTarget).data('measurementid');
           activateLesion(measurementId, template.data);
     },*/
-    'click .lesionTableLayoutChanger a': function(event, instance) {
-        var id = event.currentTarget.id;
-        instance.lesionTableLayout.set(id);
-    }
 });
 
 // Temporary until we have a real window manager with events for series/study changed

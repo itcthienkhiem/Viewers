@@ -7,7 +7,9 @@
             <div class="lesionNumber">
                 {{ #if descriptionRequired }}
                 <div>
-                    <i class="fa fa-warning"></i>
+                    <svg>
+                        <use xlink:href=/packages/lesiontracker/assets/icons.svg#icon-ui-warning></use>
+                    </svg>
                 </div>
                 {{ /if }}
                 {{ #if responseStatus }}
