@@ -88,6 +88,14 @@ Package.onUse(function(api) {
     api.addFiles('client/components/toolbarSection/toolbarSection.styl', 'client');
     api.addFiles('client/components/toolbarSection/toolbarSection.js', 'client');
 
+    api.addFiles('client/components/radialProgressBar/radialProgressBar.html', 'client');
+    api.addFiles('client/components/radialProgressBar/radialProgressBar.styl', 'client');
+    api.addFiles('client/components/radialProgressBar/radialProgressBar.js', 'client');
+
+    api.addFiles('client/components/caseProgress/caseProgress.html', 'client');
+    api.addFiles('client/components/caseProgress/caseProgress.styl', 'client');
+    api.addFiles('client/components/caseProgress/caseProgress.js', 'client');
+
     api.addFiles('client/components/viewerMain/viewerMain.html', 'client');
     api.addFiles('client/components/viewerMain/viewerMain.styl', 'client');
     api.addFiles('client/components/viewerMain/viewerMain.js', 'client');
