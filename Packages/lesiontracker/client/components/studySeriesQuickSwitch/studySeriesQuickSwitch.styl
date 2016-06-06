@@ -41,3 +41,28 @@ $switchSize = 50px
 
 .mirror-x
   transform(scaleX(-1));
+
+.studyHover
+  position: absolute
+  z-index: 10000
+  top: 70px
+  left: -350px
+  width: 400px
+  height: 500px
+  background: red
+  transition(all 0.3s ease)
+
+.seriesHover
+  position: absolute
+  z-index: 10000
+  top: 70px
+  left: 50px
+  width: 700px
+  height: 900px
+  background: blue
+  transition(all 0.3s ease)
+
+  &.tiny
+    width: 0
+    height: 0
+    opacity: 0

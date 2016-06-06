@@ -2,10 +2,10 @@ Template.caseProgress.onCreated(function caseProgressOnCreated() {
     const instance = Template.instance();
 
     instance.progressPercent = new ReactiveVar();
-    instance.progressPercent.set(0);
+    instance.progressPercent.set(50);
 
     instance.progressText = new ReactiveVar();
-    instance.progressText.set(10);
+    instance.progressText.set(5);
 
     instance.isLocked = new ReactiveVar(false);
 });
