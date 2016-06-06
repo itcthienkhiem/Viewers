@@ -92,6 +92,9 @@
       opacity: 0.5
       cursor: not-allowed
 
+    .buttonLabel
+      font-size: 12px
+
     .svgContainer
       margin: 0 auto
       text-align: center
@@ -105,9 +108,9 @@
 
     svg
       background-color: transparent
-      margin: 5px
-      width: 17px
-      height: 17px
+      margin: 2px
+      width: 21px
+      height: 21px
 
     &:active, &.active
       color: $activeColor
@@ -133,3 +136,16 @@
     min-width: 30px
     cursor: pointer
     text-align: center
+
+  .quickSwitch
+    position: absolute
+    
+    &.middle
+      left: calc(50% - 60px)
+
+    &.left
+      left: calc(50% - 160px)
+
+    &.right
+      left: 50%
+      margin-left: 20px

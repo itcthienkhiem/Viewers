@@ -15,9 +15,10 @@
                 {{ >toolbarSectionButton }}
             {{ /each }}
         </div>
-        <!--<div class="centered">
-            > studySeriesQuickSwitch
-        </div>!-->
+
+        {{ >studySeriesQuickSwitch side="left"}}
+        {{ >studySeriesQuickSwitch side="right"}}
+
         <div class="pull-right toolbarSectionEntry">
             {{ >caseProgress }}
         </div>

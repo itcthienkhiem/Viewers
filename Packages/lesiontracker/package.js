@@ -113,6 +113,10 @@ Package.onUse(function(api) {
     api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.html', 'client');
     api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.styl', 'client');
     api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.js', 'client');
+    
+    api.addFiles('client/components/studySeriesQuickSwitch/studySeriesQuickSwitch.html', 'client');
+    api.addFiles('client/components/studySeriesQuickSwitch/studySeriesQuickSwitch.styl', 'client');
+    api.addFiles('client/components/studySeriesQuickSwitch/studySeriesQuickSwitch.js', 'client');
 
     api.addFiles('client/components/associationModal/associationModal.html', 'client');
     api.addFiles('client/components/associationModal/associationModal.styl', 'client');

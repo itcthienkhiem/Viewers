@@ -171,6 +171,7 @@ Package.onUse(function(api) {
 
     // UI Helpers
     api.addFiles('lib/helpers/formatDA.js', 'client');
+    api.addFiles('lib/helpers/logical.js', 'client');
     api.addFiles('lib/helpers/formatJSDate.js', 'client');
     api.addFiles('lib/helpers/jsDateFromNow.js', 'client');
     api.addFiles('lib/helpers/formatNumberPrecision.js', 'client');
