@@ -1,6 +1,8 @@
 // TODO: [design] migrate stylus files to a common OHIF package
 @import "{lesiontracker}/client/app"
 
+$seriesCountBackgroundColor = #678696
+
 .thumbnailEntry
   cursor: copy
   cursor: -webkit-grab
@@ -9,8 +11,57 @@
   margin: 0 auto
   font-family: Roboto
 
-  .seriesDescription
+  .seriesDetails
     color: $textPrimaryColor
     font-size: 14px
     line-height: 1.3em
+    min-height: 36px
+    position: relative
     word-wrap: break-word
+
+  .seriesDescription
+    margin-right: 54px
+
+  .seriesInformation
+    position: absolute
+    right: 0
+    top: 0
+
+    .seriesInformationNumbers
+    .seriesInformationIcons
+      margin-right: 4px
+
+    .seriesInformationNumbers
+      color: $textSecondaryColor
+      float: left
+      font-size: 12px
+
+    .seriesInformationIcons
+      float: left
+      text-align: right
+
+      strong
+        color: $activeColor
+        font-size: 10px
+        // TODO: [design] try to find out what is the font-weight for Roboto-Black
+        font-weight: 500
+
+      div
+        background-color: $seriesCountBackgroundColor
+        margin-top: 6px
+        position: relative
+
+        &:after
+          background-color: $activeColor
+          box-shadow: 1px 1px rgba(0, 0, 0, .115)
+          left: -5px
+          position: absolute
+          top: -5px
+
+        &
+        &:after
+          border: 1px solid $primaryBackgroundColor
+          content: ''
+          display: block
+          height: 11px
+          width: 11px

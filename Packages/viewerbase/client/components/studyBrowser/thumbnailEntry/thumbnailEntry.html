@@ -3,6 +3,20 @@
         <div class="p-x-1">
             {{>imageThumbnail}}
         </div>
-        <div class="seriesDescription noselect p-x-1 m-t-1">{{seriesDescription}}</div>
+        <div class="seriesDetails noselect m-a-1">
+            <div class="seriesDescription">
+                {{this.stack.seriesDescription}}
+            </div>
+            <div class="seriesInformation">
+                <div class="seriesInformationIcons">
+                    <strong>S:</strong>
+                    <div></div>
+                </div>
+                <div class="seriesInformationNumbers">
+                    <div>{{this.stack.seriesNumber}}</div>
+                    <div>{{this.stack.instances.length}}</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>

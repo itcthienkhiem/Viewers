@@ -38,34 +38,23 @@ Package.onUse(function(api) {
         'client/styles/global.styl',
         'client/styles/mixins.styl',
         'client/styles/spacings.styl',
-        'client/styles/variables.styl'
+        'client/styles/variables.styl',
+        'client/styles/webfonts.styl'
     ], 'client', {
         isImport: true
     });
 
     // Additional Custom Cornerstone Tools for Lesion Tracker
-    api.addFiles('client/compatibility/bidirectionalTool.js', 'client', {
-        bare: true
-    });
-    api.addFiles('client/compatibility/nonTargetTool.js', 'client', {
-        bare: true
-    });
-    api.addFiles('client/compatibility/scaleOverlayTool.js', 'client', {
-        bare: true
-    });
-    api.addFiles('client/compatibility/deleteLesionKeyboardTool.js', 'client', {
-        bare: true
-    });
-    api.addFiles('client/compatibility/crunexTool.js', 'client', {
-        bare: true
-    });
-    api.addFiles('client/compatibility/crTool.js', 'client', {
-        bare: true
-    });
-    api.addFiles('client/compatibility/unTool.js', 'client', {
-        bare: true
-    });
-    api.addFiles('client/compatibility/exTool.js', 'client', {
+    api.addFiles([
+        'client/compatibility/bidirectionalTool.js',
+        'client/compatibility/nonTargetTool.js',
+        'client/compatibility/scaleOverlayTool.js',
+        'client/compatibility/deleteLesionKeyboardTool.js',
+        'client/compatibility/crunexTool.js',
+        'client/compatibility/crTool.js',
+        'client/compatibility/unTool.js',
+        'client/compatibility/exTool.js'
+    ], 'client', {
         bare: true
     });
 
@@ -113,7 +102,7 @@ Package.onUse(function(api) {
     api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.html', 'client');
     api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.styl', 'client');
     api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.js', 'client');
-    
+
     api.addFiles('client/components/studySeriesQuickSwitch/studySeriesQuickSwitch.html', 'client');
     api.addFiles('client/components/studySeriesQuickSwitch/studySeriesQuickSwitch.styl', 'client');
     api.addFiles('client/components/studySeriesQuickSwitch/studySeriesQuickSwitch.js', 'client');
