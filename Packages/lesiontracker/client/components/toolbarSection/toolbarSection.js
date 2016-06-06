@@ -29,6 +29,13 @@ Template.toolbarSection.helpers({
         });
 
         buttonData.push({
+            id: 'link',
+            title: 'Link',
+            classes: 'imageViewerCommand toolbarSectionButton',
+            svgLink: '/packages/lesiontracker/assets/icons.svg#icon-tools-link'
+        });
+
+        buttonData.push({
             id: 'bidirectional',
             title: 'Target',
             classes: 'imageViewerTool',
@@ -43,10 +50,10 @@ Template.toolbarSection.helpers({
         });
 
         buttonData.push({
-            id: 'clearTools',
-            title: 'Clear tools',
-            classes: 'imageViewerCommand toolbarSectionButton',
-            iconClasses: 'fa fa-trash'
+            id: 'length',
+            title: 'Temp',
+            classes: 'imageViewerTool toolbarSectionButton',
+            svgLink: '/packages/lesiontracker/assets/icons.svg#icon-tools-measure-temp'
         });
 
         return buttonData;

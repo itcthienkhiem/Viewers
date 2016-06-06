@@ -14,6 +14,17 @@
             {{ #each toolbarButtons }}
                 {{ >toolbarSectionButton }}
             {{ /each }}
+
+            <div id="moreTools" class="toolbarSectionButton">
+                <div class="svgContainer">
+                    <svg>
+                        <use xlink:href="/packages/lesiontracker/assets/icons.svg#icon-tools-more"></use>
+                    </svg>
+                </div>
+                <div class="buttonLabel">
+                    More <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </div>
+            </div>
         </div>
 
         {{ >studySeriesQuickSwitch side="left"}}
