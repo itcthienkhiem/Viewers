@@ -1,10 +1,74 @@
 <template name="additionalMeasurements">
-    <div id="additionalMeasurementsContainer">
-        <div class="additionalMeasurementsHeader">
-            <h1>Additional Measurements</h1>
-        </div>
-        <div class="additionalMeasurementsWrapper">
-            <p>Additional Measurement stuff</p>
+    <div id="additionalMeasurements">
+        <div class="scrollArea">
+            <div class="section">
+                <div class="header">
+                    Additional Findings: Baseline
+                </div>
+                <div>
+                    {{ >radioOptionGroup measurableDiseaseButtonData}}
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="header">
+                    Supplementary Measurements
+                </div>
+                <div class="entrySection">
+                    <label>Number of bone lesions</label>
+                    <div>
+                        <select>
+                            <option>0</option>
+                            <option>1-2</option>
+                            <option selected>2-4</option>
+                            <option>>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="entrySection">
+                    <label>Regions of metastatic disease</label>
+                    <input id="regionsOfMetastaticDisease" type="text"/>
+                </div>
+                {{ >radioOptionGroup metastaticDiseaseButtonData}}
+            </div>
+            <div class="section">
+                <div class="header">
+                    Image Quality
+                </div>
+                {{ >radioOptionGroup imageQualityButtonData}}
+                {{ >radioOptionGroup anatomicalCoverageButtonData}}
+                {{ >radioOptionGroup presenceOfContrastButtonData}}
+            </div>
+            <div class="section">
+                <div class="header">
+                    Additional Screen Captures
+                </div>
+                <div class="entrySection buttonSection">
+                    <div class="svgContainer">
+                        <svg>
+                            <use xlink:href="/packages/lesiontracker/assets/icons.svg#icon-create-screen-capture"></use>
+                        </svg>
+                    </div>
+                    <div class="buttonLabel noselect">
+                        Add new screen capture
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="header">
+                    Comments
+                </div>
+                <div class="entrySection buttonSection">
+                    <div class="svgContainer">
+                        <svg>
+                            <use xlink:href="/packages/lesiontracker/assets/icons.svg#icon-create-comment"></use>
+                        </svg>
+                    </div>
+                    <div class="buttonLabel noselect">
+                        Add a comment
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>

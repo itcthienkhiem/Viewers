@@ -110,6 +110,10 @@ Package.onUse(function(api) {
     api.addFiles('client/components/additionalMeasurements/additionalMeasurements.styl', 'client');
     api.addFiles('client/components/additionalMeasurements/additionalMeasurements.js', 'client');
 
+    api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.html', 'client');
+    api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.styl', 'client');
+    api.addFiles('client/components/additionalMeasurements/radioOptionGroup/radioOptionGroup.js', 'client');
+
     api.addFiles('client/components/associationModal/associationModal.html', 'client');
     api.addFiles('client/components/associationModal/associationModal.styl', 'client');
     api.addFiles('client/components/associationModal/associationModal.js', 'client');
