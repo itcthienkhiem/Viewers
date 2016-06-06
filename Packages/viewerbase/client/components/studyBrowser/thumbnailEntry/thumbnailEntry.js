@@ -186,8 +186,19 @@ function thumbnailDragEndHandler(e, target) {
 
     var viewportIndex = $('.imageViewerViewport').index(element);
 
+    // Removes active class from previous selected series in viewport
+    const previousUid = layoutManager.viewportData[viewportIndex].seriesInstanceUid;
+    if (previousUid) {
+        $(`.thumbnailEntry[data-uid="${previousUid}"]`).removeClass('active');
+    }
+
     // Rerender the viewport using the drag and drop data
     layoutManager.rerenderViewportWithNewSeries(viewportIndex, OHIF.viewer.dragAndDropData);
+
+    // Set active state for dragged thumbnail entry
+    const newUid = OHIF.viewer.dragAndDropData.seriesInstanceUid
+    $(`.thumbnailEntry[data-uid="${newUid}"]`).addClass('active');
+
     return false;
 }
 
