@@ -23,6 +23,7 @@ ddp-client@1.2.1
 ddp-common@1.2.2
 ddp-server@1.2.2
 deps@1.0.9
+design@0.0.1
 dicomweb@0.0.1
 diff-sequence@1.0.1
 dimseservice@0.0.1

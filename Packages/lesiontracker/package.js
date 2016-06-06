@@ -11,6 +11,7 @@ Package.onUse(function(api) {
     api.use('standard-app-packages');
     api.use('jquery');
     api.use('stylus');
+    api.use('design');
 
     // Control over logging
     api.use('practicalmeteor:loglevel');
@@ -31,18 +32,6 @@ Package.onUse(function(api) {
     api.addFiles('client/collections/LesionLocations.js', 'client');
     api.addFiles('client/collections/LocationResponses.js', 'client');
     api.addFiles('client/collections/subscriptions.js', 'client');
-
-    // Importable colors / typography settings
-    api.addFiles([
-        'client/app.styl',
-        'client/styles/global.styl',
-        'client/styles/mixins.styl',
-        'client/styles/spacings.styl',
-        'client/styles/variables.styl',
-        'client/styles/webfonts.styl'
-    ], 'client', {
-        isImport: true
-    });
 
     // Additional Custom Cornerstone Tools for Lesion Tracker
     api.addFiles([
@@ -157,10 +146,6 @@ Package.onUse(function(api) {
     api.addFiles('client/components/nonTargetLesionDialog/nonTargetLesionDialog.html', 'client');
     api.addFiles('client/components/nonTargetLesionDialog/nonTargetLesionDialog.styl', 'client');
     api.addFiles('client/components/nonTargetLesionDialog/nonTargetLesionDialog.js', 'client');
-
-    api.addFiles('client/components/roundedButtonGroup/roundedButtonGroup.html', 'client');
-    api.addFiles('client/components/roundedButtonGroup/roundedButtonGroup.styl', 'client');
-    api.addFiles('client/components/roundedButtonGroup/roundedButtonGroup.js', 'client');
 
     api.addFiles('client/components/studyDateList/studyDateList.html', 'client');
     api.addFiles('client/components/studyDateList/studyDateList.styl', 'client');

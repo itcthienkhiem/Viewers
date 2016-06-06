@@ -14,6 +14,7 @@ Package.onUse(function(api) {
     api.use('stylus');
     api.use('practicalmeteor:loglevel');
     api.use('momentjs:moment');
+    api.use('design');
 
     // Our custom packages
     api.use('cornerstone');
@@ -200,4 +201,3 @@ Package.onUse(function(api) {
     api.addFiles('server/collections.js', 'server');
     api.export('StudyImportStatus', [ 'client', 'server' ]);
 });
-
