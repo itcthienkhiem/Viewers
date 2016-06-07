@@ -152,6 +152,7 @@ Package.onUse(function(api) {
     api.addFiles('client/components/studyDateList/studyDateList.js', 'client');
 
     api.addFiles('client/components/studyTimepointBrowser/studyTimepoint.html', 'client');
+    api.addFiles('client/components/studyTimepointBrowser/studyTimepoint.styl', 'client');
     api.addFiles('client/components/studyTimepointBrowser/studyTimepoint.js', 'client');
     api.addFiles('client/components/studyTimepointBrowser/studyTimepointBrowser.html', 'client');
     api.addFiles('client/components/studyTimepointBrowser/studyTimepointBrowser.styl', 'client');

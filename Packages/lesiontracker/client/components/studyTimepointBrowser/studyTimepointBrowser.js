@@ -1,8 +1,12 @@
 Template.studyTimepointBrowser.events({
-    'click .studyModality'(event, instance) {
-        const study = $(event.currentTarget).closest('.studyTimepointStudy')[0];
-        instance.$('.studyTimepointStudy').not(study).removeClass('active');
-        $(study).toggleClass('active');
+    'click .timepointHeader'(event, instance) {
+        const $timepoint = $(event.currentTarget).closest('.timepointEntry');
+
+        // Recalculates the timepoint height to make CSS transition smoother
+        $timepoint.find('.studyTimepoint').trigger('displayStateChanged');
+
+        // Toggle active class to group/ungroup timepoint studies
+        $timepoint.toggleClass('active');
     }
 });
 
@@ -23,16 +27,18 @@ Template.studyTimepointBrowser.helpers({
 
         return index < 4 || timepoint.timepointType === 'baseline';
     },
+    // Build the timepoint title based on its date
     timepointTitle(timepoint, total, index) {
         if (timepoint.timepointType === 'baseline') {
             return 'Baseline';
         }
 
         const states = {
-            0: '(current)',
-            1: '(prior)',
-            2: '(nadir)'
+            0: '(Current)',
+            1: '(Prior)',
+            2: '(Nadir)'
         };
+        // TODO: [design] find out how to define the nadir timepoint
         const followUp = total - index - 1;
         const parenthesis = states[index] || '';
         return `Follow-up ${followUp} ${parenthesis}`;
